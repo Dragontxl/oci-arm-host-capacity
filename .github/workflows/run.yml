@@ -9,7 +9,7 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes 1
     steps:
       - uses: actions/checkout@v4
 
@@ -21,13 +21,16 @@ jobs:
       - name: Install dependencies
         run: composer install --no-scripts
 
+      - name: Create private key file
+        run: echo "${{ secrets.OCI_PRIVATE_KEY }}" > private_key.pem
+
       - name: Run OCI ARM Creator
         env:
           OCI_REGION: ${{ secrets.OCI_REGION }}
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_ID }}
           OCI_USER_ID: ${{ secrets.OCI_USER_ID }}
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_KEY_FINGERPRINT }}
-          OCI_PRIVATE_KEY: ${{ secrets.OCI_PRIVATE_KEY }}
+          OCI_PRIVATE_KEY_FILENAME: private_key.pem
           OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
           OCI_IMAGE_ID: ${{ secrets.OCI_IMAGE_ID }}
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
