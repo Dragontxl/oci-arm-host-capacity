@@ -24,6 +24,10 @@ jobs:
       - name: Create private key file
         run: echo "${{ secrets.OCI_PRIVATE_KEY }}" > private_key.pem
 
+      - name: Fix index.php shape bug
+        run: |
+          sed -i '76s/$api->checkExistingInstances($config, $compartmentId);/$api->checkExistingInstances($config, $compartmentId, "VM.Standard.A1.Flex");/' index.php
+
       - name: Run OCI ARM Creator
         env:
           OCI_REGION: us-phoenix-1
@@ -35,7 +39,6 @@ jobs:
           OCI_IMAGE_ID: ${{ secrets.OCI_IMAGE_ID }}
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
           OCI_AVAILABILITY_DOMAIN: PHX-AD-1
-          OCI_INSTANCE_SHAPE: VM.Standard.A1.Flex
           OCI_OCPUS: 4
           OCI_MEMORY: 24
           OCI_MAX_INSTANCES: 1
