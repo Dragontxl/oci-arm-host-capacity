@@ -35,6 +35,7 @@ jobs:
           OCI_IMAGE_ID: ${{ secrets.OCI_IMAGE_ID }}
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN }}
+          OCI_INSTANCE_SHAPE: ${{ secrets.OCI_INSTANCE_SHAPE }}
           OCI_OCPUS: 4
           OCI_MEMORY: 24
           OCI_MAX_INSTANCES: 1
